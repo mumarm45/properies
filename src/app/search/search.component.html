@@ -1,0 +1,8 @@
+<mat-form-field class="example-full-width">
+    <input type="text" placeholder="Search for property" [formControl]="myControl" aria-label="property" matInput [matAutocomplete]="auto">
+    <mat-autocomplete #auto="matAutocomplete" [displayWith]="display">
+        <mat-option *ngFor="let option of filteredOptions | async" [value]="option" (click)="searchData(option)">
+            {{option?.title}}
+        </mat-option>
+    </mat-autocomplete>
+</mat-form-field>

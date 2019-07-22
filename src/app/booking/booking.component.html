@@ -1,0 +1,49 @@
+<a routerLink="/list">back</a>
+<mat-card class="view-card">
+    <mat-card-header>
+        <mat-card-title>{{peroperty?.name}}</mat-card-title>
+        <mat-card-subtitle [innerHtml]="peroperty?.address"></mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <p>
+            <span *ngIf="peroperty?.phone"> Contact Number : {{peroperty?.phone}}</span>
+            <span *ngIf="peroperty?.email"> Email : {{peroperty?.email}}</span>
+            <span *ngIf="peroperty?.website"> Website : {{peroperty?.website}}</span>
+            <!-- <app-load-map *ngIf="peroperty?.view" [url]="peroperty?.view"></app-load-map> -->
+        </p>
+    </mat-card-content>
+</mat-card>
+<form class="form-container" [formGroup]="bookingForm">
+    <div class="form-row">
+        <mat-form-field class="each-form-field">
+            <mat-label for="fullName">Full Name</mat-label>
+            <input matInput type="text" name="fullName" formControlName="fullName" />
+            <mat-error *ngIf="f?.fullName?.errors?.required">FullName required</mat-error>
+        </mat-form-field>
+        <mat-form-field class="each-form-field">
+            <mat-label for="email">Email</mat-label>
+            <input matInput type="email" name="email" formControlName="email" />
+            <mat-error *ngIf="f?.email?.errors?.required">Email required</mat-error>
+            <mat-error *ngIf="f?.email?.errors?.email">Incorrect Email entered</mat-error>
+        </mat-form-field>
+    </div>
+    <div class="form-row">
+        <mat-form-field class="each-form-field">
+            <mat-label>Checkin Date</mat-label>
+            <input matInput name="fromDate" [min]="minDate" [matDatepicker]="selectedDate" formControlName="fromDate" />
+            <mat-datepicker-toggle matSuffix [for]="selectedDate"></mat-datepicker-toggle>
+            <mat-datepicker #selectedDate></mat-datepicker>
+            <mat-error *ngIf="f?.fromDate?.errors?.required">Checkin date required</mat-error>
+        </mat-form-field>
+        <mat-form-field class="each-form-field">
+            <mat-label>Checkout Date</mat-label>
+            <input matInput name="toDate" [matDatepicker]="selectedToDate" [min]="f?.fromDate?.value" formControlName="toDate" />
+            <mat-datepicker-toggle matSuffix [for]="selectedToDate"></mat-datepicker-toggle>
+            <mat-datepicker #selectedToDate></mat-datepicker>
+            <mat-error *ngIf="f?.toDate?.errors?.required">Checkout date required</mat-error>
+        </mat-form-field>
+    </div>
+    <div>
+        <button mat-button [disabled]="bookingForm.invalid" (click)="onSubmit()">Booked</button>
+    </div>
+</form>

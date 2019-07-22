@@ -1,0 +1,7 @@
+<mat-grid-list cols="4" rowHeight="100px">
+    <mat-grid-tile class="list-data" *ngFor="let link of (position$ | async)?.propertyData" (click)="bookProperty(link.url)">
+        <img [src]="link.icon"> {{ link.title }}
+    </mat-grid-tile>
+</mat-grid-list>
+<button mat-button *ngIf="(position$ | async)?.previous as previous" (click)="loadUrl(previous)">previous</button>
+<button mat-button *ngIf="(position$ | async)?.next as next" (click)="loadUrl(next)">next</button>
